@@ -10,7 +10,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 
-import { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth } from './src/pages'
+import { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher } from './src/pages'
+
+import TeacherDrawerContent from './src/component/TeacherDrawerContent'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -116,7 +118,10 @@ const AppbarList = {
 				
 			</Header>
 		)
-	}
+    },
+    searchteacher: function(){
+        return null
+    }
 }
 
 const TeacherAppbarList = {
@@ -185,7 +190,7 @@ function CustomDrawerContent(props) {
     );
 }
 
-function TeacherDrawerContent(props) {
+/*function TeacherDrawerContent(props) {
     return (
         <DrawerContentScrollView {...props}>
             <View style={{ height: 170, backgroundColor: '#3F51B5', marginTop: -4, justifyContent:'center', alignItems: 'flex-start' }}>
@@ -196,7 +201,7 @@ function TeacherDrawerContent(props) {
             <DrawerItemList {...props} />
         </DrawerContentScrollView>
     );
-}
+}*/
 
 function HomeStack(){
     return(
@@ -330,6 +335,14 @@ class App extends Component{
                                         }}
                                     />
 
+                                    <Stack.Screen
+                                        headerMode="none" 
+                                        name="SearchTeacher" component={SearchTeacher} 
+                                        options={{
+                                            ...TransitionPresets.FadeFromBottomAndroid
+                                        }}
+                                    />
+
                                 </Stack.Navigator>
                             )
 
@@ -344,7 +357,7 @@ class App extends Component{
                                 )
                             :
                                 (
-                                    <Drawer.Navigator drawerContent={TeacherDrawerContent} initialRouteName="Home">
+                                    <Drawer.Navigator drawerContent={(props) => <TeacherDrawerContent {...props}/>} initialRouteName="Home">
                                         <Drawer.Screen name="Home" component={TeacherStack} />
                                     </Drawer.Navigator>
                                 )

@@ -4,6 +4,7 @@ import LottieView from 'lottie-react-native'
 
 import { Container, Content, Card, CardItem } from 'native-base'
 import Ion from 'react-native-vector-icons/Feather'
+import Sound from 'react-native-sound'
 
 const PHONE = Dimensions.get('window')
 
@@ -65,10 +66,23 @@ class Question extends Component{
                 }
             ]
         }
+        this.correctSound = null
+        this.wrongSound = null
     }
 
     componentDidMount(){
         //BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
+        this.correctSound = new Sound('correct.wav', null, (error)=>{
+            if(error){
+                console.log(error)
+            }
+        })
+
+        this.wrongSound = new Sound('wrong.wav', null, (error)=>{
+            if(error){
+                console.log(error)
+            }
+        })
     }
 
     handleBackButtonClick=()=>{
@@ -79,6 +93,7 @@ class Question extends Component{
         let self = this
 
         if(dex == usto){
+            this.correctSound.play()
             self.setState((prevState)=>({
                 ...prevState,
                 correct: true,
@@ -103,6 +118,7 @@ class Question extends Component{
                 },3000)
             })
         }else{
+            this.wrongSound.play()
             self.setState((prevState)=>({
                 ...prevState,
                 wrong: true

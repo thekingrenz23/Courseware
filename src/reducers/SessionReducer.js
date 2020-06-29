@@ -2,7 +2,11 @@ import { SAVE_SESSION, TEACHER_SESSION } from '../actions/Types'
 
 const initialState = {
     type: null,
-    username: ""
+    
+    //teacher
+    username: "",
+    teacher_id: "",
+    name: ""
 }
 
 const SessionReducer = (state = initialState, action) =>{
@@ -17,7 +21,9 @@ const SessionReducer = (state = initialState, action) =>{
             return{
                 ...state,
                 type: action.data.type,
-                username: action.data.username
+                username: action.data.username,
+                teacher_id: action.data.teacher_id,
+                name: action.data.name
             }
         default: 
             return state
