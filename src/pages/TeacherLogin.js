@@ -1,26 +1,67 @@
 import React, { Component } from 'react'
 import { Dimensions, StyleSheet, View, Image, StatusBar} from 'react-native'
 
-import { Form, Item, Label, Input, Button, Text, Container, Content } from 'native-base'
+import { Form, Item, Label, Input, Button, Text, Container, Content, Toast } from 'native-base'
 import Ion from 'react-native-vector-icons/Ionicons'
 
 import { connect } from 'react-redux'
 import { teacherSession } from '../actions/Session'
+import { ProgressDialog } from 'react-native-simple-dialogs'
 
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/teacher_cover.png')
 
+import API from '../API'
+
 class TeacherLogin extends Component{
+
+
+    constructor(props){
+        super(props)
+        this.state = {
+            loading: false,
+            username: "",
+            password: ""
+        }
+    }
 
     login(){
         let self = this
 
-        let userData = {
+        /*let userData = {
             type: 'teacher',
             username: 'kingrenz23'
         }
 
-        this.props.saveTeacherSession(userData)
+        this.props.saveTeacherSession(userData)*/
+
+        let payload = {
+            username: self.state.username,
+            password: self.state.password
+        }
+
+        self.setState({ loading: true }, async ()=>{
+            const { data, status } = await API.loginTeacher(payload)
+
+            self.setState({ loading: false },()=>{
+                if(data.ok == true){
+                    let userData = {
+                        type: 'teacher',
+                        username: self.state.username,
+                        teacher_id: data.teacher_id,
+                        name: data.name
+                    }
+
+                    this.props.saveTeacherSession(userData)
+                }else{
+                    Toast.show({
+                        text: data.message,
+                        buttonText: 'Okay',
+                        duration: 5000
+                    })
+                }
+            })
+        })
     }
 
     render(){
@@ -32,6 +73,12 @@ class TeacherLogin extends Component{
                         barStyle="dark-content"
                     />
 
+                    <ProgressDialog     
+                        visible={this.state.loading}
+                        title="Logging in"
+                        message="Please, wait..."
+                    />
+
                     <Image source={LOGO} style={styles.logo}/>
                     
                     <View style={styles.form}>
@@ -41,13 +88,13 @@ class TeacherLogin extends Component{
                             <Item inlineLabel style={styles.formItem}>
                                 <Ion active name='ios-person' style={styles.formLogo}/>
                                 <Label>Username</Label>
-                                <Input />
+                                <Input onChangeText={(text)=>{ this.setState({ username: text }) }}/>
                             </Item>
 
                             <Item inlineLabel>
                                 <Ion active name='ios-lock' style={styles.formLogo}/>
                                 <Label>Password</Label>
-                                <Input />
+                                <Input onChangeText={(text)=>{ this.setState({ password: text }) }} secureTextEntry={true}/>
                             </Item>
 
                             
