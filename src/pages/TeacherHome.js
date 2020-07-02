@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import API from '../API'
 
 const PHONE = Dimensions.get('window')
-const LOGO = require('../Assets/trophy.png')
+const LOGO = require('../Assets/teacher.png')
 const LOGO2 = require('../Assets/home_cover.png')
 const LOGO3 = require('../Assets/user.png')
 
@@ -122,17 +122,16 @@ class TeacherHome extends Component{
             />
             <ProgressDialog
                 visible={this.state.loading}
-                title="Loading"
                 message="Please, wait..."
             />
             <ParallaxScrollView
                 parallaxHeaderHeight={300}
                 renderForeground={() => (
                     <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 14 }}>Top #1</Text>
+                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 14 }}>Dashboard</Text>
                         <Image source={LOGO} style={{ height: 90, width: 90 }}/>
-                        <Text style={{ fontSize: 17, color: 'gainsboro' }}>Renz Carlo Salanga</Text>
-                        <Text style={{ fontSize: 12, color: 'gainsboro' }}>Congratulations</Text>
+                        <Text style={{ fontSize: 17, color: 'gainsboro' }}>{this.props.name}</Text>
+                        <Text style={{ fontSize: 12, color: 'gainsboro' }}>{this.props.username}</Text>
                     </View>
                 )}
                 renderBackground={()=>(
@@ -146,9 +145,9 @@ class TeacherHome extends Component{
                         this.state.applications.length == 0 ?
 
                             (
-                                <View style={{ width: PHONE.width, justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                     <Ion name="md-happy" size={100} style={{ color: 'gainsboro' }}/>
-                                    <Text>No Application</Text>
+                                    <Text>No enrollment Application</Text>
                                     <Button rounded bordered style={{ marginTop: 20 }} onPress={this.loadList.bind(this)}>
                                         <Text>Refresh</Text>
                                     </Button>
@@ -196,7 +195,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return{
-        teacher_id: state.session.teacher_id
+        teacher_id: state.session.teacher_id,
+        name: state.session.name,
+        username: state.session.username
     }
 }
 
