@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { studentSession } from '../actions/Session'
 import { ProgressDialog } from 'react-native-simple-dialogs'
 import API from '../API'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/login_cover.png')
@@ -36,27 +37,32 @@ class Login extends Component{
         self.setState({loading: true}, async ()=>{
             const { data, status } = await API.loginStudent(payload)
 
-            self.setState({
-                loading: false
-            },()=>{
-                if(data.ok == true){
-                    if(data.status == 1){
-                        alert("pwede")
-                    }else{
-                        Toast.show({
-                            text: "Enrollment is denied please approach your teacher!",
-                            buttonText: 'Okay',
-                            duration: 5000
-                        })
+            if(data.ok == true){
+                if(data.status == 1){
+                    
+                    let userData = {
+                        type: 'student',
+                        user_id: data.user_id,
+                        name: data.name,
+                        enroll_id: data.enroll_id
                     }
+                    
+                    self.storeData(userData)
+                    //self.props.saveStudentSession(userData)
                 }else{
                     Toast.show({
-                        text: data.message,
+                        text: "Enrollment is denied please approach your teacher!",
                         buttonText: 'Okay',
                         duration: 5000
                     })
                 }
-            })
+            }else{
+                Toast.show({
+                    text: data.message,
+                    buttonText: 'Okay',
+                    duration: 5000
+                })
+            }
         })    
         /*let userData = {
             type: 'student',
@@ -64,6 +70,23 @@ class Login extends Component{
         }
 
         this.props.saveStudentSession(userData)*/
+    }
+
+    async storeData(payload){
+        let self = this
+
+        try{
+            await AsyncStorage.setItem('logindata', JSON.stringify(payload))
+
+            self.setState({
+                loading: false
+            },()=>{
+                self.props.saveStudentSession(payload)    
+            })
+            
+        }catch(err){
+            alert("Error saving session");
+        }
     }
 
     render(){
@@ -76,7 +99,6 @@ class Login extends Component{
                     />
                     <ProgressDialog
                         visible={this.state.loading}
-                        title="Logging in"
                         message="Please, wait..."
                     />
                     <Image source={LOGO} style={styles.logo}/>

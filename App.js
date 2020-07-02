@@ -10,9 +10,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 
-import { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher } from './src/pages'
+import { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher, Ready, StudentSummary, TeacherLeaderboard } from './src/pages'
 
 import TeacherDrawerContent from './src/component/TeacherDrawerContent'
+import StudentDrawerContent from './src/component/StudentDrawerContent'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -121,7 +122,10 @@ const AppbarList = {
     },
     searchteacher: function(){
         return null
-    }
+    },
+    ready: function(navigation){
+		return null
+    },
 }
 
 const TeacherAppbarList = {
@@ -158,6 +162,21 @@ const TeacherAppbarList = {
 				<Right />
 			</Header>
 		)
+    },
+    studentsummary: function(navigation){
+		return (
+			<Header>
+				<Left>	
+					<Button transparent rounded onPress={()=>{ navigation.goBack() }}>
+                    	<Icon name='arrow-back'/>
+                	</Button>
+            	</Left>
+				<Body>
+					<Title>Student Answers Summary</Title>
+				</Body>
+				<Right />
+			</Header>
+		)
     }
 }
 
@@ -174,34 +193,6 @@ const TeacherAppbar = ( scene, navigation )=> {
 
 	return TeacherAppbarList[title.toLowerCase()](navigation)
 }
-
-const LOGO = require('./src/Assets/Book.png')
-
-function CustomDrawerContent(props) {
-    return (
-        <DrawerContentScrollView {...props}>
-            <View style={{ height: 170, backgroundColor: '#3F51B5', marginTop: -4, justifyContent:'center', alignItems: 'flex-start' }}>
-                <Image source={LOGO} style={{ height: 80, width: 80, marginLeft: 13}}/>
-                <Text style={{ color: 'white', fontSize: 20, marginLeft: 13, marginTop: 13 }}>John Doe</Text>
-                <Text style={{ color: 'gainsboro', fontSize: 15, marginLeft: 13, marginTop: 5 }}>ID#: 1238192</Text>
-            </View>
-            <DrawerItemList {...props} />
-        </DrawerContentScrollView>
-    );
-}
-
-/*function TeacherDrawerContent(props) {
-    return (
-        <DrawerContentScrollView {...props}>
-            <View style={{ height: 170, backgroundColor: '#3F51B5', marginTop: -4, justifyContent:'center', alignItems: 'flex-start' }}>
-                <Image source={LOGO} style={{ height: 80, width: 80, marginLeft: 13}}/>
-                <Text style={{ color: 'white', fontSize: 20, marginLeft: 13, marginTop: 13 }}>Teacher Doe</Text>
-                <Text style={{ color: 'gainsboro', fontSize: 15, marginLeft: 13, marginTop: 5 }}>ID#: 1238192</Text>
-            </View>
-            <DrawerItemList {...props} />
-        </DrawerContentScrollView>
-    );
-}*/
 
 function HomeStack(){
     return(
@@ -241,6 +232,13 @@ function HomeStack(){
                 />
 
                 <Stack.Screen 
+                    name="Ready" component={Ready} 
+                    options={{
+                        ...TransitionPresets.FadeFromBottomAndroid
+                    }}
+                />
+
+                <Stack.Screen 
                     name="Question" component={Question} 
                     options={{
                         ...TransitionPresets.FadeFromBottomAndroid
@@ -268,7 +266,14 @@ function TeacherStack(){
                 />
 
                 <Stack.Screen 
-                    name="Leaderboard" component={Leaderboard} 
+                    name="Leaderboard" component={TeacherLeaderboard} 
+                    options={{
+                        ...TransitionPresets.FadeFromBottomAndroid
+                    }}
+                />
+
+                <Stack.Screen 
+                    name="StudentSummary" component={StudentSummary} 
                     options={{
                         ...TransitionPresets.FadeFromBottomAndroid
                     }}
@@ -351,7 +356,7 @@ class App extends Component{
                             
                             this.props.type == 'student' ?
                                 (
-                                    <Drawer.Navigator drawerContent={CustomDrawerContent} initialRouteName="Home">
+                                    <Drawer.Navigator drawerContent={(props)=> <StudentDrawerContent {...props}/> } initialRouteName="Home">
                                         <Drawer.Screen name="Home" component={HomeStack} />
                                     </Drawer.Navigator>
                                 )

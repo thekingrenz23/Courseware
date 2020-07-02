@@ -7,6 +7,7 @@ import Ion from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
 import { teacherSession } from '../actions/Session'
 import { ProgressDialog } from 'react-native-simple-dialogs'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/teacher_cover.png')
@@ -43,25 +44,40 @@ class TeacherLogin extends Component{
         self.setState({ loading: true }, async ()=>{
             const { data, status } = await API.loginTeacher(payload)
 
-            self.setState({ loading: false },()=>{
-                if(data.ok == true){
-                    let userData = {
-                        type: 'teacher',
-                        username: self.state.username,
-                        teacher_id: data.teacher_id,
-                        name: data.name
-                    }
-
-                    this.props.saveTeacherSession(userData)
-                }else{
-                    Toast.show({
-                        text: data.message,
-                        buttonText: 'Okay',
-                        duration: 5000
-                    })
+            if(data.ok == true){
+                let userData = {
+                    type: 'teacher',
+                    username: self.state.username,
+                    teacher_id: data.teacher_id,
+                    name: data.name
                 }
-            })
+
+                self.storeData(userData)
+            }else{
+                Toast.show({
+                    text: data.message,
+                    buttonText: 'Okay',
+                    duration: 5000
+                })
+            }
+
+            
         })
+    }
+
+    async storeData(payload){
+        let self = this
+
+        try{
+            await AsyncStorage.setItem('logindata', JSON.stringify(payload))
+
+            self.setState({ loading: false },()=>{
+                self.props.saveTeacherSession(payload)    
+            })
+            
+        }catch(err){
+            alert("Error saving session");
+        }
     }
 
     render(){
@@ -75,7 +91,6 @@ class TeacherLogin extends Component{
 
                     <ProgressDialog     
                         visible={this.state.loading}
-                        title="Logging in"
                         message="Please, wait..."
                     />
 

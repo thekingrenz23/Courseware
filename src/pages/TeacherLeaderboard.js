@@ -14,7 +14,7 @@ const LOGO3 = require('../Assets/user.png')
 
 import API from '../API'
 
-class Leaderboard extends Component{
+class TeacherLeaderboard extends Component{
 
 
     constructor(props){
@@ -29,10 +29,10 @@ class Leaderboard extends Component{
 
         self.setState({ loading: true }, async ()=>{
             let payload = {
-                student_id: this.props.student_id
+                teacher_id: this.props.teacher_id
             }
     
-            const { data, status } = await API.getLeaderBoardStudent(payload)
+            const { data, status } = await API.getLeaderBoardTeacher(payload)
 
             self.setState({ loading: false },()=>{
                 if(data.ok == true){
@@ -84,7 +84,7 @@ class Leaderboard extends Component{
                         dataArray={this.state.list}
                         renderRow={
                             (row)=>(
-                                <ListItem thumbnail onPress={ () => { this.props.navigation.navigate('StudentSummary') } }>
+                                <ListItem thumbnail onPress={ () => { this.props.navigation.navigate('StudentSummary', { student_id: row.student_id, name:row.fname+' '+row.lname, trophy: row.trophy  }) } } >
                                     <Left>
                                         <Thumbnail square source={LOGO3} />
                                     </Left>
@@ -93,7 +93,7 @@ class Leaderboard extends Component{
                                         <Text note numberOfLines={1}>ID: {row.student_idno}</Text>
                                     </Body>
                                     <Right>
-                                        <Button transparent>
+                                        <Button transparent disabled>
                                             <Icon name="trophy"/>
                                             <Text>{row.trophy}</Text>
                                         </Button>
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return{
-        student_id: state.session.user_id
+        teacher_id: state.session.teacher_id
     }
 }
 
-export default connect(mapStateToProps, null)(Leaderboard)
+export default connect(mapStateToProps, null)(TeacherLeaderboard)
