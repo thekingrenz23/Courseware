@@ -8,6 +8,11 @@ is a web based application build with vue js used for managing stories and avtiv
 ### [Student and Teacher Mobile Application Module](https://github.com/thekingrenz23/Courseware)
 is a mobile application build with react native
 
-# Screen shots
-- *Register Student*    
+# How it works
+1. ### Step 1  (Student Registration)
+- Student will register using there ID#  
+![Register Student](http://fusiontechph.com/renz/courseware_register.gif "Register Student")
+
+2. ### Step 2  (Student Registration)
+- Student will register using there ID#  
 ![Register Student](http://fusiontechph.com/renz/courseware_register.gif "Register Student")
