@@ -17,3 +17,6 @@ is a mobile application build with react native
 
 3. Step 3  (Play/Read Stories and answer questions) - Students will need to read and answer questions about the story so they can gain trophy and move on to the next story  
 ![Play/Read Stories and answer questions](http://fusiontechph.com/renz/courseware_answer.gif "Play/Read Stories and answer questions")
+
+4. Step 4  (Leaderboard/Student Statistics) - Teacher can evaluate how many tries did the student need to answer the question  
+![Leaderboard/Student Statistics](http://fusiontechph.com/renz/courseware_leader.gif "Leaderboard/Student Statistics")
