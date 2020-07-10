@@ -15,5 +15,5 @@ is a mobile application build with react native
 2. Step 2  (Registration/Enrollment Approval) - Students will need to wait for there teacher to approve there enrollment
 ![Registration/Enrollment Approval](http://fusiontechph.com/renz/courseware_enroll.gif "Registration/Enrollment Approval")
 
-3. Step 3  (Play/Read Stories and answer questions) - Students will need to read and answer questions about the story so they can gain trophy and move on to the next story
+3. Step 3  (Play/Read Stories and answer questions) - Students will need to read and answer questions about the story so they can gain trophy and move on to the next story  
 ![Play/Read Stories and answer questions](http://fusiontechph.com/renz/courseware_answer.gif "Play/Read Stories and answer questions")
