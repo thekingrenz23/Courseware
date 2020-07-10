@@ -12,7 +12,7 @@ is a mobile application build with react native
 1. Step 1  (Student Registration/Enrollment) - Student will register using there ID#  
 ![Register Student](http://fusiontechph.com/renz/courseware_register.gif "Register Student")
 
-2. Step 2  (Registration/Enrollment Approval) - Students will need to wait for there teacher to approve there enrollment
+2. Step 2  (Registration/Enrollment Approval) - Students will need to wait for there teacher to approve there enrollment  
 ![Registration/Enrollment Approval](http://fusiontechph.com/renz/courseware_enroll.gif "Registration/Enrollment Approval")
 
 3. Step 3  (Play/Read Stories and answer questions) - Students will need to read and answer questions about the story so they can gain trophy and move on to the next story  
