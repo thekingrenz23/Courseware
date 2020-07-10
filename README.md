@@ -9,5 +9,5 @@ is a web based application build with vue js used for managing stories and avtiv
 is a mobile application build with react native
 
 # Screen shots
-- Register Student  
+- *Register Student*    
 ![Register Student](http://fusiontechph.com/renz/courseware_register.gif "Register Student")
