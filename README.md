@@ -9,10 +9,8 @@ is a web based application build with vue js used for managing stories and avtiv
 is a mobile application build with react native
 
 # How it works
-1. ### Step 1  (Student Registration)
-- Student will register using there ID#  
+1. ### Step 1  (Student Registration/Enrollment) - Student will register using there ID#  
 ![Register Student](http://fusiontechph.com/renz/courseware_register.gif "Register Student")
 
-2. ### Step 2  (Student Registration)
-- Student will register using there ID#  
-![Register Student](http://fusiontechph.com/renz/courseware_register.gif "Register Student")
+2. ### Step 2  (Registration/Enrollment Approval) - Students will need to wait for there teacher to approve there enrollment
+![Register Student](http://fusiontechph.com/renz/courseware_enroll.gif "Register Student")
