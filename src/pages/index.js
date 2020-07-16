@@ -8,5 +8,9 @@ import Question from './Question'
 import TeacherLogin from './TeacherLogin'
 import TeacherHome from './TeacherHome'
 import Auth from './Auth'
+import SearchTeacher from './SearchTeacher'
+import Ready from './Ready'
+import StudentSummary from './StudentSummary'
+import TeacherLeaderboard from './TeacherLeaderboard'
 
-export { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth }
+export { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher, Ready, StudentSummary, TeacherLeaderboard }

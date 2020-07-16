@@ -1,9 +1,10 @@
 import { createStore, combineReducers } from 'redux'
-import { SessionReducer } from '../reducers'
+import { SessionReducer, SelectionReducer } from '../reducers'
 
 const rootReducer = combineReducers(
     {
-        session: SessionReducer
+        session: SessionReducer,
+        selection: SelectionReducer
     }
 )
 
