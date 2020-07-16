@@ -44,22 +44,24 @@ class TeacherLogin extends Component{
         self.setState({ loading: true }, async ()=>{
             const { data, status } = await API.loginTeacher(payload)
 
-            if(data.ok == true){
-                let userData = {
-                    type: 'teacher',
-                    username: self.state.username,
-                    teacher_id: data.teacher_id,
-                    name: data.name
+            self.setState({ loading: false }, ()=>{
+                if(data.ok == true){
+                    let userData = {
+                        type: 'teacher',
+                        username: self.state.username,
+                        teacher_id: data.teacher_id,
+                        name: data.name
+                    }
+    
+                    self.storeData(userData)
+                }else{
+                    Toast.show({
+                        text: data.message,
+                        buttonText: 'Okay',
+                        duration: 5000
+                    })
                 }
-
-                self.storeData(userData)
-            }else{
-                Toast.show({
-                    text: data.message,
-                    buttonText: 'Okay',
-                    duration: 5000
-                })
-            }
+            })
 
             
         })

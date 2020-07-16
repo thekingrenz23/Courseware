@@ -37,32 +37,34 @@ class Login extends Component{
         self.setState({loading: true}, async ()=>{
             const { data, status } = await API.loginStudent(payload)
 
-            if(data.ok == true){
-                if(data.status == 1){
-                    
-                    let userData = {
-                        type: 'student',
-                        user_id: data.user_id,
-                        name: data.name,
-                        enroll_id: data.enroll_id
+            self.setState({ loading: false }, ()=>{
+                if(data.ok == true){
+                    if(data.status == 1){
+                        
+                        let userData = {
+                            type: 'student',
+                            user_id: data.user_id,
+                            name: data.name,
+                            enroll_id: data.enroll_id
+                        }
+                        
+                        self.storeData(userData)
+                        //self.props.saveStudentSession(userData)
+                    }else{
+                        Toast.show({
+                            text: "Enrollment is denied please approach your teacher!",
+                            buttonText: 'Okay',
+                            duration: 5000
+                        })
                     }
-                    
-                    self.storeData(userData)
-                    //self.props.saveStudentSession(userData)
                 }else{
                     Toast.show({
-                        text: "Enrollment is denied please approach your teacher!",
+                        text: data.message,
                         buttonText: 'Okay',
                         duration: 5000
                     })
                 }
-            }else{
-                Toast.show({
-                    text: data.message,
-                    buttonText: 'Okay',
-                    duration: 5000
-                })
-            }
+            })
         })    
         /*let userData = {
             type: 'student',
