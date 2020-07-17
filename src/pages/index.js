@@ -12,5 +12,6 @@ import SearchTeacher from './SearchTeacher'
 import Ready from './Ready'
 import StudentSummary from './StudentSummary'
 import TeacherLeaderboard from './TeacherLeaderboard'
+import About from './About'
 
-export { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher, Ready, StudentSummary, TeacherLeaderboard }
+export { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher, Ready, StudentSummary, TeacherLeaderboard, About }

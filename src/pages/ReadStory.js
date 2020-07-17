@@ -12,6 +12,8 @@ const LOGO = require('../Assets/Book.png')
 const LOGO2 = require('../Assets/home_cover.png')
 const LOGO3 = require('../Assets/user.png')
 
+import CustomButton from '../component/Button'
+
 class ReadStory extends Component{
     render(){
         return(
@@ -30,7 +32,7 @@ class ReadStory extends Component{
                 >
                 <View style={{ minHeight: 500, padding: 14 }}>
                     <HTML html={this.props.route.params.story} baseFontStyle={{ fontSize: 18, lineHeight: 40 }}/>
-                    <Button block style={styles.submit} onPress={()=>{ this.props.navigation.navigate('Ready', { ...this.props.route.params }) }}><Text> Answer Questions </Text></Button>
+                    <CustomButton label="Answer Questions" block style={styles.submit} onPress={()=>{ this.props.navigation.navigate('Ready', { ...this.props.route.params }) }}/>
                 </View>
             </ParallaxScrollView>
         )
