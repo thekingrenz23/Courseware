@@ -8,6 +8,8 @@ import Sound from 'react-native-sound'
 
 const PHONE = Dimensions.get('window')
 
+import CustomButton from '../component/Button'
+
 class Ready extends Component{
 
     constructor(props){
@@ -54,7 +56,7 @@ class Ready extends Component{
                                 <Content contentContainerStyle={{ justifyContent: 'space-around', alignItems: 'center', flex: 1, paddingHorizontal: 20 }}>
                                     
                                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Are you ready to take the activity ?</Text>
-                                    <Button block style={{ marginTop: 30 }} onPress={()=>{ this.setState({ ready: true }) }}><Text> Let's Go </Text></Button>
+                                    <CustomButton label="Let's Go" block style={{ marginTop: 30 }} onPress={()=>{ this.setState({ ready: true }) }} style={{ width: PHONE.width - 40}}/>
                                 </Content>  
                             </>
                         )

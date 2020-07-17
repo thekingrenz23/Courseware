@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 
-import { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher, Ready, StudentSummary, TeacherLeaderboard } from './src/pages'
+import { Login, Register, Home, Leaderboard, StoryList, ReadStory, Question, TeacherLogin, TeacherHome, Auth, SearchTeacher, Ready, StudentSummary, TeacherLeaderboard, About } from './src/pages'
 
 import TeacherDrawerContent from './src/component/TeacherDrawerContent'
 import StudentDrawerContent from './src/component/StudentDrawerContent'
@@ -126,6 +126,21 @@ const AppbarList = {
     ready: function(navigation){
 		return null
     },
+    about: function(navigation){
+		return (
+			<Header>
+				<Left>	
+					<Button transparent rounded onPress={()=>{ navigation.goBack() }}>
+                    	<Icon name='arrow-back'/>
+                	</Button>
+            	</Left>
+				<Body>
+					<Title>About</Title>
+				</Body>
+				<Right />
+			</Header>
+		)
+    }
 }
 
 const TeacherAppbarList = {
@@ -173,6 +188,21 @@ const TeacherAppbarList = {
             	</Left>
 				<Body>
 					<Title>Student Answers Summary</Title>
+				</Body>
+				<Right />
+			</Header>
+		)
+    },
+    about: function(navigation){
+		return (
+			<Header>
+				<Left>	
+					<Button transparent rounded onPress={()=>{ navigation.goBack() }}>
+                    	<Icon name='arrow-back'/>
+                	</Button>
+            	</Left>
+				<Body>
+					<Title>About</Title>
 				</Body>
 				<Right />
 			</Header>
@@ -245,6 +275,13 @@ function HomeStack(){
                     }}
                 />
 
+                <Stack.Screen 
+                    name="About" component={About} 
+                    options={{
+                        ...TransitionPresets.FadeFromBottomAndroid
+                    }}
+                />
+
         </Stack.Navigator>
     )
 }
@@ -274,6 +311,13 @@ function TeacherStack(){
 
                 <Stack.Screen 
                     name="StudentSummary" component={StudentSummary} 
+                    options={{
+                        ...TransitionPresets.FadeFromBottomAndroid
+                    }}
+                />
+
+                <Stack.Screen 
+                    name="About" component={About} 
                     options={{
                         ...TransitionPresets.FadeFromBottomAndroid
                     }}
@@ -348,6 +392,12 @@ class App extends Component{
                                         }}
                                     />
 
+                                    <Stack.Screen
+                                        name="About" component={About} 
+                                        options={{
+                                            ...TransitionPresets.FadeFromBottomAndroid
+                                        }}
+                                    />
                                 </Stack.Navigator>
                             )
 

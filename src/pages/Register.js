@@ -10,6 +10,8 @@ import { ProgressDialog } from 'react-native-simple-dialogs'
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/user.png')
 
+import CustomButton from '../component/Button'
+
 import API from '../API'
 
 class Register extends Component{
@@ -405,12 +407,12 @@ class Register extends Component{
                                                 </Picker>
 
                                                 </Item>
-                                                <Button block style={styles.submit} onPress={()=>{ this.props.navigation.navigate('SearchTeacher') }}><Text> Change teacher </Text></Button>
+                                                <CustomButton block style={styles.submit} onPress={()=>{ this.props.navigation.navigate('SearchTeacher') }} label="Change Teacher"/>
                                             </>
                                         )
                                         :
                                         (
-                                            <Button block style={styles.submit} onPress={()=>{ this.props.navigation.navigate('SearchTeacher') }}><Text> Find your teacher </Text></Button>
+                                            <CustomButton block style={styles.submit} onPress={()=>{ this.props.navigation.navigate('SearchTeacher') }} label="Find you Teacher"/>
                                         )
                                 }
                             </Form>

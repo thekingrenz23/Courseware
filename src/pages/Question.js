@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, StyleSheet, BackHandler, View, TouchableOpacity, ScrollView } from 'react-native'
+import { Dimensions, StyleSheet, BackHandler, View, TouchableOpacity, ScrollView, Image } from 'react-native'
 import LottieView from 'lottie-react-native'
 
 import { Container, Content, Card, CardItem, Button, Text, Input } from 'native-base'
@@ -7,6 +7,9 @@ import Ion from 'react-native-vector-icons/Feather'
 import Sound from 'react-native-sound'
 import { ConfirmDialog, ProgressDialog  } from 'react-native-simple-dialogs'
 import { connect } from 'react-redux'
+
+const buttonBG = require('../Assets/components/yellow_button00.png')
+const panel = require('../Assets/components/green_panel.png')
 
 import API from '../API'
 
@@ -72,9 +75,14 @@ class Question extends Component{
             }
         })
 
+        let shuffled = this.props.route.params.questions
+        .map((a) => ({sort: Math.random(), value: a}))
+        .sort((a, b) => a.sort - b.sort)
+        .map((a) => a.value)
+
         //Load the questions here
         this.setState({
-            questions: this.props.route.params.questions.map(function(value , index){
+            questions: shuffled.map(function(value , index){
                 return{
                     assessment_id: value.assessment_id,
                     tanong: value.question,
@@ -347,28 +355,42 @@ class Question extends Component{
                 //console.log(usto)
 
                 if(type == 'choice'){
+                    
+                    let shuffled = choicesMAP
+                    .map((a) => ({sort: Math.random(), value: a}))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map((a) => a.value)
+
                     choices = this.state.questions[i].choices.map(function(value, index){
                         return(
                             <TouchableOpacity style={{ flex: 1 }} key={index} onPress={()=>{ self.check(index, usto, i, assessment_id, 'choice') }}>
-                                <Card>
+                                <Card transparent>
                                     <CardItem style={{ minHeight: 100 }}>
+                                        <Image source={buttonBG} style={{ position: 'absolute', resizeMode: 'stretch', width: PHONE.width - 10, height: 100 }}/>
                                         {
-                                            index < choicesMAP.length ? choicesMAP[index](): <Text style={{ fontSize: 30, color: 'blue', marginRight: 20}}>Choice #{index+1}</Text>
+                                            index < shuffled.length ? shuffled[index](): <Text style={{ fontSize: 12, color: 'blue', marginRight: 20}}>Choice #{index+1}</Text>
                                         }
-                                        <Text style={{ fontSize: 20 }} numberOfLines={4}>{value}</Text>
+                                        <Text style={{ fontSize: 20, flexShrink: 1}} numberOfLines={4}>{value}</Text>
                                     </CardItem>
                                 </Card>
                             </TouchableOpacity>
                         )
                     })
                 }else if(type == 'boolean'){
+
+                    let shuffled = choicesMAP
+                    .map((a) => ({sort: Math.random(), value: a}))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map((a) => a.value)
+
                     choices = ['True','False'].map(function(value, index){
                         return(
                             <TouchableOpacity style={{ flex: 1 }} key={index} onPress={()=>{ self.check(value, usto, i, assessment_id, 'boolean') }}>
-                                <Card>
+                                <Card transparent>
                                     <CardItem style={{ minHeight: 100 }}>
+                                        <Image source={buttonBG} style={{ position: 'absolute', resizeMode: 'stretch', width: PHONE.width - 10, height: 100 }}/>
                                         {
-                                            index < choicesMAP.length ? choicesMAP[index](): <Text style={{ fontSize: 30, color: 'blue', marginRight: 20}}>Choice #{index+1}</Text>
+                                            index < shuffled.length ? shuffled[index](): <Text style={{ fontSize: 30, color: 'blue', marginRight: 20}}>Choice #{index+1}</Text>
                                         }
                                         <Text style={{ fontSize: 20 }} numberOfLines={4}>{value}</Text>
                                     </CardItem>
@@ -378,8 +400,9 @@ class Question extends Component{
                     })
                 }else if(type == 'fill'){
                     choices = (
-                        <Card>
+                        <Card transparent>
                             <CardItem style={{ minHeight: 100 }}>
+                                <Image source={buttonBG} style={{ position: 'absolute', resizeMode: 'stretch', width: PHONE.width - 10, height: 100 }}/>
                                 <Input placeholder="Type the correct answer" onChangeText={(text)=> { this.setState({ fill_answer: text }) } }/>
 
                                 <Button block style={{marginTop: 20}} onPress={()=>{ self.check(this.state.fill_answer, usto, i, assessment_id, "fill") }}><Text> Submit </Text></Button>
@@ -390,10 +413,10 @@ class Question extends Component{
 
                 question = (
                     <>
-                        <Card style={{ padding: 10, paddingBottom: 20 }}>
+                        <Card  style={{ padding: 10, paddingBottom: 20 }}>
                             <CardItem style={{ flexDirection: 'column',  }}>
                                 <Text style={{ fontSize: 15, color: 'grey', marginBottom: 20, textAlign: 'center'}}>
-                                    Question # {i+1}
+                                    Question # {i+1} out of {this.state.questions.length}
                                 </Text>
                                 <Text style={{ fontSize: 20, lineHeight: 30 }}>
                                     {this.state.questions[i].tanong}

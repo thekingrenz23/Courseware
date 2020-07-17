@@ -61,10 +61,10 @@ class Leaderboard extends Component{
                 parallaxHeaderHeight={300}
                 renderForeground={() => this.state.list.length > 0 ? (
                     <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 14 }}>Top #1</Text>
+                        <Text style={{ fontSize: 30, color: 'white',  marginBottom: 14, fontFamily: 'kenvector_future' }}>Top #1</Text>
                         <Image source={LOGO} style={{ height: 90, width: 90 }}/>
-                        <Text style={{ fontSize: 17, color: 'gainsboro' }}>{this.state.list[0].fname+' '+this.state.list[0].lname}</Text>
-                        <Text style={{ fontSize: 12, color: 'gainsboro' }}>{this.state.list[0].trophy}</Text>
+                        <Text style={{ fontSize: 17, color: 'gainsboro', fontFamily: 'kenvector_future' }}>{this.state.list[0].fname+' '+this.state.list[0].lname}</Text>
+                        <Text style={{ fontSize: 12, color: 'gainsboro', fontFamily: 'kenvector_future' }}>{this.state.list[0].trophy}</Text>
                     </View>
                 ): (
                     <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -84,7 +84,7 @@ class Leaderboard extends Component{
                         dataArray={this.state.list}
                         renderRow={
                             (row)=>(
-                                <ListItem thumbnail onPress={ () => { this.props.navigation.navigate('StudentSummary') } }>
+                                <ListItem thumbnail>
                                     <Left>
                                         <Thumbnail square source={LOGO3} />
                                     </Left>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Dimensions, StyleSheet, View, Image, StatusBar} from 'react-native'
+import { Dimensions, StyleSheet, View, Image, StatusBar, TouchableOpacity} from 'react-native'
 
 import { Form, Item, Label, Input, Button, Text, Container, Content, Toast } from 'native-base'
 import Ion from 'react-native-vector-icons/Ionicons'
+import Fe from 'react-native-vector-icons/Feather'
 
 import { connect } from 'react-redux'
 import { studentSession } from '../actions/Session'
@@ -12,6 +13,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/login_cover.png')
+
+import CustomButton from '../component/Button'
 
 class Login extends Component{
 
@@ -103,10 +106,16 @@ class Login extends Component{
                         visible={this.state.loading}
                         message="Please, wait..."
                     />
-                    <Image source={LOGO} style={styles.logo}/>
+
+                    <View style={{ justifyContent: 'center' }}>
+                        <TouchableOpacity style={{ height: 50, width: 50, position: 'absolute', right: 10, top: 10, zIndex: 9999, justifyContent: 'center', alignItems: 'center' }} onPress={()=>{ this.props.navigation.navigate("About") }}>
+                            <Fe active name='info' style={{ color: 'black' }} size={25}/>
+                        </TouchableOpacity>
+                        <Image source={LOGO} style={styles.logo}/>
+                    </View>
                     
                     <View style={styles.form}>
-                        <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Welcome Student</Text>
+                        <Text style={{ textAlign: 'center', fontFamily: 'kenvector_future', fontSize: 20 }}>READING COMPREHENSION COURSEWARE</Text>
                         <Form>
 
                             <Item inlineLabel style={styles.formItem}>
@@ -124,9 +133,13 @@ class Login extends Component{
                             
                         </Form>
 
-                        <Button block style={styles.submit} onPress={()=>{ this.login() }}><Text> Login as student </Text></Button>
-                        <Button block style={styles.submit} transparent onPress={()=>{ this.props.navigation.navigate('Register') }}><Text> Register </Text></Button>
+                        {/*<Button block style={styles.submit} onPress={()=>{ this.login() }}><Text> Login as student </Text></Button>
+                            <Button block style={styles.submit} transparent onPress={()=>{ this.props.navigation.navigate('Register') }}><Text> Register </Text></Button>
                         <Button block style={styles.submit} transparent onPress={()=>{ this.props.navigation.navigate('TeacherLogin') }}><Text> Teacher </Text><Ion name="md-arrow-dropright" style={{ fontSize: 20, color: 'gainsboro' }}/></Button>
+                        */}
+                        <CustomButton label="Login as Student" style={{ marginTop: 10 }} onPress={()=>{ this.login() }}/>
+                        <CustomButton label="Register" style={{ marginTop: 10 }} type={2} onPress={()=>{ this.props.navigation.navigate('Register') }}/>
+                        <CustomButton label="Teacher" style={{ marginTop: 10 }} type={2} onPress={()=>{ this.props.navigation.navigate('TeacherLogin') }}/>
                     </View>
                 </Content>
             </Container>
@@ -141,7 +154,7 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: PHONE.width,
-        height: PHONE.height/2,
+        height: (PHONE.height/2) - 50,
         alignSelf: 'center',
         resizeMode: 'contain'
     },

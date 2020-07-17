@@ -8,6 +8,10 @@ import Ion from 'react-native-vector-icons/Ionicons'
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/trophy.png')
 const LOGO2 = require('../Assets/home_cover.png')
+const bg = require('../Assets/components/home_wave.png')
+
+
+import CustomButton from '../component/Button'
 
 import API from '../API'
 import { connect } from 'react-redux'
@@ -51,9 +55,9 @@ class Home extends Component{
                 parallaxHeaderHeight={300}
                 renderForeground={() => (
                     <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 14 }}>Current</Text>
+                        <Text style={{ fontSize: 30, color: 'white', marginBottom: 14, fontFamily: 'kenvector_future' }}>Current</Text>
                         <Image source={LOGO} style={{ height: 90, width: 90 }}/>
-                        <Text style={{ fontSize: 17, color: 'gainsboro' }}>{this.state.trophy} Trophy</Text>
+                        <Text style={{ fontSize: 17, color: 'gainsboro', fontFamily: 'kenvector_future' }}>{this.state.trophy} Trophy</Text>
                     </View>
                 )}
                 renderBackground={()=>(
@@ -61,53 +65,54 @@ class Home extends Component{
                 )}
                 outputScaleValue={10}
                 >
-                <View style={{ minHeight: 200, padding: 14 }}>
-                    <List>
+                <View style={{ padding: 14 }}>
+                    {/*<Image source={bg} style={{ position: 'absolute', resizeMode: 'contain', top: -10, width: PHONE.width, height: PHONE.height / 2 }}/>*/}
+                    <List style={{  }}>
+                            {/*<ListItem style={{ borderBottomWidth: 0 }}>
+                                <Card transparent style={{ width: PHONE.width - 14 }}>
+                                    <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 1 }) }}>
+                                        <CardItem>
+                                            <Icon active name="book" />
+                                            <Text>First Quarter</Text>
+                                            <Right>
+                                                <Icon name="arrow-forward" />
+                                            </Right>
+                                        </CardItem>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 2 }) }}>
+                                        <CardItem>
+                                            <Icon active name="book" />
+                                            <Text>Second Quarter</Text>
+                                            <Right>
+                                                <Icon name="arrow-forward" />
+                                            </Right>
+                                        </CardItem>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 3 }) }}>
+                                        <CardItem>
+                                            <Icon active name="book" />
+                                            <Text>Third Quarter</Text>
+                                            <Right>
+                                                <Icon name="arrow-forward" />
+                                            </Right>
+                                        </CardItem>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 4 }) }}>
+                                        <CardItem>
+                                            <Icon active name="book" />
+                                            <Text>Fourth Quarter</Text>
+                                            <Right>
+                                                <Icon name="arrow-forward" />
+                                            </Right>
+                                        </CardItem>
+                                    </TouchableOpacity>
+                                </Card>
+                    </ListItem>*/}
 
-                        <ListItem itemDivider>
-                            <Text>Quarter List</Text>
-                        </ListItem>  
-
-                        <ListItem style={{ borderBottomWidth: 0 }}>
-                            <Card transparent style={{ width: PHONE.width - 14 }}>
-                                <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 1 }) }}>
-                                    <CardItem>
-                                        <Icon active name="book" />
-                                        <Text>First Quarter</Text>
-                                        <Right>
-                                            <Icon name="arrow-forward" />
-                                        </Right>
-                                    </CardItem>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 2 }) }}>
-                                    <CardItem>
-                                        <Icon active name="book" />
-                                        <Text>Second Quarter</Text>
-                                        <Right>
-                                            <Icon name="arrow-forward" />
-                                        </Right>
-                                    </CardItem>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 3 }) }}>
-                                    <CardItem>
-                                        <Icon active name="book" />
-                                        <Text>Third Quarter</Text>
-                                        <Right>
-                                            <Icon name="arrow-forward" />
-                                        </Right>
-                                    </CardItem>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 4 }) }}>
-                                    <CardItem>
-                                        <Icon active name="book" />
-                                        <Text>Fourth Quarter</Text>
-                                        <Right>
-                                            <Icon name="arrow-forward" />
-                                        </Right>
-                                    </CardItem>
-                                </TouchableOpacity>
-                            </Card>
-                        </ListItem>
+                        <CustomButton  label="First Quarter" style={{ marginBottom: 20 }} icon="book" onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 1 }) }}/>
+                        <CustomButton  label="Second Quarter" style={{ marginBottom: 20 }}  icon="book" onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 2 }) }}/>
+                        <CustomButton  label="Third Quarter" style={{ marginBottom: 20 }}  icon="book" onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 3 }) }}/>
+                        <CustomButton  label="Fourth Quarter" style={{ marginBottom: 20 }}  icon="book" onPress={()=>{ this.props.navigation.navigate('StoryList', { quarter: 4 }) }}/>
 
                     </List>
                 </View>

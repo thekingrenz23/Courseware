@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, StyleSheet, View, Image, StatusBar} from 'react-native'
+import { Dimensions, StyleSheet, View, Image, StatusBar, TouchableOpacity} from 'react-native'
 
 import { Form, Item, Label, Input, Button, Text, Container, Content, Toast } from 'native-base'
 import Ion from 'react-native-vector-icons/Ionicons'
@@ -8,9 +8,12 @@ import { connect } from 'react-redux'
 import { teacherSession } from '../actions/Session'
 import { ProgressDialog } from 'react-native-simple-dialogs'
 import AsyncStorage from '@react-native-community/async-storage'
+import Fe from 'react-native-vector-icons/Feather'
 
 const PHONE = Dimensions.get('window')
 const LOGO = require('../Assets/teacher_cover.png')
+
+import CustomButton from '../component/Button'
 
 import API from '../API'
 
@@ -96,10 +99,15 @@ class TeacherLogin extends Component{
                         message="Please, wait..."
                     />
 
-                    <Image source={LOGO} style={styles.logo}/>
+                <View style={{ justifyContent: 'center' }}>
+                        <TouchableOpacity style={{ height: 50, width: 50, position: 'absolute', right: 10, top: 10, zIndex: 9999, justifyContent: 'center', alignItems: 'center' }} onPress={()=>{ this.props.navigation.navigate("About") }}>
+                            <Fe active name='info' style={{ color: 'black' }} size={25}/>
+                        </TouchableOpacity>
+                        <Image source={LOGO} style={styles.logo}/>
+                    </View>
                     
                     <View style={styles.form}>
-                        <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Welcome Teacher</Text>
+                    <Text style={{ textAlign: 'center', fontFamily: 'kenvector_future', fontSize: 20 }}>READING COMPREHENSION COURSEWARE</Text>
                         <Form>
 
                             <Item inlineLabel style={styles.formItem}>
@@ -117,7 +125,7 @@ class TeacherLogin extends Component{
                             
                         </Form>
 
-                        <Button block style={styles.submit} onPress={()=>{ this.login() }}><Text> Login as teacher </Text></Button>
+                        <CustomButton label="Login as Teacher" style={styles.submit} onPress={()=>{ this.login() }}/>
                     </View>
                 </Content>
             </Container>

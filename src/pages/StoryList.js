@@ -12,6 +12,9 @@ const LOGO = require('../Assets/Book.png')
 const LOGO2 = require('../Assets/home_cover.png')
 const LOGO3 = require('../Assets/user.png')
 
+
+import CustomButton from '../component/BookList'
+
 import API from '../API'
 
 class StoryList extends Component{
@@ -69,7 +72,7 @@ class StoryList extends Component{
                 parallaxHeaderHeight={300}
                 renderForeground={() => (
                     <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold', marginBottom: 14 }}>{this.props.route.params.quarter == 1 ? 'First':this.props.route.params.quarter == 2 ? 'Second': this.props.route.params.quarter == 3 ? 'Third': this.props.route.params.quarter == 4 ? 'Fourth': ''} Quarter</Text>
+                        <Text style={{ fontSize: 30, color: 'white',  marginBottom: 14, fontFamily: 'kenvector_future' }}>{this.props.route.params.quarter == 1 ? 'First':this.props.route.params.quarter == 2 ? 'Second': this.props.route.params.quarter == 3 ? 'Third': this.props.route.params.quarter == 4 ? 'Fourth': ''} Quarter</Text>
                         <Image source={LOGO} style={{ height: 120, width: 120 }}/>
                     </View>
                 )}
@@ -96,30 +99,19 @@ class StoryList extends Component{
                                 <List
                                     dataArray={this.state.dataList}
                                     renderRow={(data, sectionID, rowId) => (
-                                        <ListItem thumbnail>
-                                            <Left>
-                                                <Thumbnail square source={LOGO} />
-                                            </Left>
-                                            <Body>
-                                                <Text>{data.title}</Text>
-                                                <Text note numberOfLines={1}>Story #{rowId+1}</Text>
-                                            </Body>
-                                            <Right>
-                                                <Button transparent onPress={()=>{ 
-                                                    if(data.unlock){
-                                                        if(data.completed == false){
-                                                            this.props.navigation.navigate('ReadStory', {...data})
-                                                        }else{
-                                                            alert("You have already taken the activity of this story")
-                                                        }
+                                        <CustomButton label={data.title} style={{ marginBottom: 20 }} icon="book" 
+                                            onPress={()=>{ 
+                                                if(data.unlock){
+                                                    if(data.completed == false){
+                                                        this.props.navigation.navigate('ReadStory', {...data})
                                                     }else{
-                                                        alert("Story is lock")
+                                                        alert("You have already taken the activity of this story")
                                                     }
-                                                 }}>
-                                                    <Text>Read</Text>
-                                                </Button>
-                                            </Right>
-                                        </ListItem>
+                                                }else{
+                                                    alert("Story is lock")
+                                                }
+                                            }}
+                                        />
                                     )}
                                     keyExtractor={(item, index) => index.toString()}
                                     style={{ padding: 14 }}
@@ -148,3 +140,28 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, null)(StoryList)
+
+{/*<ListItem thumbnail style={{ backgroundColor: 'red' }}>
+                                            <Left>
+                                                <Thumbnail square source={LOGO} />
+                                            </Left>
+                                            <Body>
+                                                <Text>{data.title}</Text>
+                                                <Text note numberOfLines={1}>Story #{rowId+1}</Text>
+                                            </Body>
+                                            <Right>
+                                                <Button transparent onPress={()=>{ 
+                                                    if(data.unlock){
+                                                        if(data.completed == false){
+                                                            this.props.navigation.navigate('ReadStory', {...data})
+                                                        }else{
+                                                            alert("You have already taken the activity of this story")
+                                                        }
+                                                    }else{
+                                                        alert("Story is lock")
+                                                    }
+                                                 }}>
+                                                    <Text>Read</Text>
+                                                </Button>
+                                            </Right>
+                                                </ListItem>*/}

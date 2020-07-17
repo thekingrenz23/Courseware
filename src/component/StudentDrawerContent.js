@@ -40,6 +40,7 @@ class StudentDrawerContent extends Component{
                     <Text style={{ color: 'gainsboro', fontSize: 15, marginLeft: 13, marginTop: 5 }}>Student</Text>
                 </View>
                 <DrawerItemList {...this.props} />
+                <DrawerItem label="About" onPress={()=>{ this.props.navigation.navigate('About') }}/>
                 <DrawerItem label="Logout" onPress={()=>{ this.logout() }}/>
             </DrawerContentScrollView>
         )
